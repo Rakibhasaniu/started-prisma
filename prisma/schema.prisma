@@ -14,15 +14,41 @@ model Post {
   content String?
   published  Boolean @default(false)
   authorId Int
+  author User @relation(fields: [authorId],references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  postCategory PostCategory[]
 }
 
 model User {
   id Int @id @default(autoincrement())
   userame String @unique
   email String @unique
-  role  UserRole
+  role  UserRole @default(user)
+  profile Profile? //one to one relation
+  post Post[] //one to many
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  bio String?
+  userid Int @unique
+  user User @relation(fields: [userid], references: [id])
+}
+
+model Category {
+  id  Int @id @default(autoincrement() )
+  name String
+  postCategory PostCategory[]
+}
+
+model PostCategory {
+  postId Int
+  post Post @relation(fields:[postId], references:[id])
+  categoryId Int
+  category Category @relation(fields: [categoryId],references: [id])
+
+  @@id([postId,categoryId]) //composite key
 }
 
 enum UserRole {
