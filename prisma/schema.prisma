@@ -22,7 +22,7 @@ model Post {
 
 model User {
   id Int @id @default(autoincrement())
-  userame String @unique
+  username String @unique
   email String @unique
   role  UserRole @default(user)
   profile Profile? //one to one relation
@@ -32,8 +32,8 @@ model User {
 model Profile {
   id Int @id @default(autoincrement())
   bio String?
-  userid Int @unique
-  user User @relation(fields: [userid], references: [id])
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Category {

@@ -1,15 +1,20 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, UserRole } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const main =async () => {
-    // const result = await prisma.post.create({
+    // const createUser = await prisma.user.create({
     //     data:{
-    //         title:"this is title",
-    //         published:true,
-    //         author:"Rakib hasan"
+    //         username:"Sohana Shitol",
+    //         email: "sohana@gmail.com",
+    //         role:UserRole.user
     //     }
     // })
-    const getAllFromDB = await prisma.post.findMany();
-    console.log(getAllFromDB);
+    const createProfile = await prisma.profile.create({
+        data:{
+            bio:"This Is Bio",
+            userId:2
+        }
+    })
+    console.log(createProfile)
 }
 main();
